@@ -31,7 +31,8 @@ project "PixelGame"
 		"%{prj.name}/src/**.cpp",
 		"%{prj.name}/ThirdParty/**.h",
 		"%{prj.name}/ThirdParty/**.cpp",
-		"%{prj.name}/ThirdParty/**.hpp"
+		"%{prj.name}/ThirdParty/**.hpp",
+		"%{prj.name}/ThirdParty/**.inl"
 	}
 
 	includedirs
