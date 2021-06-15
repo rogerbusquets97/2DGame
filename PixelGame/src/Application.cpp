@@ -1,6 +1,6 @@
 #define OLC_PGE_APPLICATION
 #include "Application.h"
-#include "Systems/ISystem.h"
+#include "ECS/Systems/ISystem.h"
 
 Application::Application(const std::string& i_name)
 {
@@ -64,4 +64,9 @@ void Application::RemoveSystem(ISystem* i_system)
 	auto systemIt = std::find(m_systems.begin(), m_systems.end(), i_system);
 	if (systemIt != m_systems.end())
 		m_systems.erase(systemIt);
+}
+
+entt::registry& Application::GetRegistry()
+{
+	return m_registry;
 }

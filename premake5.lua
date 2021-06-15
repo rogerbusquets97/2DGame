@@ -11,6 +11,7 @@ workspace "PixelGame"
 	outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 	IncludeDir = {}
 	IncludeDir["PixelGameEngine"] = "PixelGame/ThirdParty/olcPixelGameEngine/Include"
+	IncludeDir["entt"] = "PixelGame/ThirdParty/entt/include"
 
 project "PixelGame"
 	location "PixelGame"
@@ -34,7 +35,8 @@ project "PixelGame"
 	includedirs
 	{
 		"%{prj.name}/src",
-		IncludeDir["PixelGameEngine"]
+		IncludeDir["PixelGameEngine"],
+		IncludeDir["entt"]
 	}
 
 	libdirs

@@ -1,13 +1,13 @@
 #pragma once
-#include "Systems/ISystem.h"
+#include "SystemBase.h"
 
 class Application;
 
-class RenderSystem : public ISystem
+class RenderSystem : public SystemBase
 {
 public:
 
-	RenderSystem(const Application& i_app);
+	RenderSystem(Application& i_app);
 	virtual ~RenderSystem();
 
 	bool OnCreate() override;
