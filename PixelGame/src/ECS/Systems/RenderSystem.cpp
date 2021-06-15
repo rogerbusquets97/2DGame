@@ -21,7 +21,7 @@ bool RenderSystem::OnPreUpdate(float fElapsedTime)
 
 bool RenderSystem::OnUpdate(float fElapsedTime)
 {
-	m_application.Clear({0.0f, 0.0f, 0.0f, 0.0f});
+	m_application.Clear({0, 0, 0, 0});
 
 	entt::registry& sceneRegistry = GetSceneRegistry();
 	auto& view = sceneRegistry.view<RenderableComponent, TransformComponent>();
@@ -34,6 +34,10 @@ bool RenderSystem::OnUpdate(float fElapsedTime)
 		{
 			Rendereable& toRender = m_rendereables.at(renderable.fileName);
 			m_application.DrawRotatedDecal({ trans.x, trans.y }, toRender.decal, trans.angle);
+		}
+		else
+		{
+			m_application.Draw({ (int)trans.x, (int)trans.y }, olc::GREY);
 		}
 	}
 

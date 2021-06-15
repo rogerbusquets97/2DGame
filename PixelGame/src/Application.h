@@ -1,6 +1,7 @@
 #pragma once
 #include "olcPixelGameEngine.h"
 #include "entt.hpp"
+#include "ECS/Entity.h"
 
 class ISystem;
 
@@ -13,6 +14,8 @@ public:
 	bool OnUserCreate() override;
 	bool OnUserUpdate(float fElapsedTime) override;
 	bool OnUserDestroy() override;
+
+	Entity CreateEntity(float x = 0.0f, float y = 0.0f, float angle = 0.0f);
 
 	template<typename T>
 	bool AddSystem()

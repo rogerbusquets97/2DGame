@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ECS/Systems/ISystem.h"
 #include "ECS/Systems/RenderSystem.h"
+#include "ECS/Components.h"
 
 Application::Application(const std::string& i_name)
 {
@@ -55,6 +56,16 @@ bool Application::OnUserDestroy()
 	}
 
 	return returnValue;
+}
+
+Entity Application::CreateEntity(float x, float y, float angle)
+{
+	entt::entity handle = m_registry.create();
+	TransformComponent trans;
+
+	Entity ent(handle, m_registry);
+	ent.AddComponent<TransformComponent>(x, y, angle);
+	return ent;
 }
 
 entt::registry& Application::GetRegistry()

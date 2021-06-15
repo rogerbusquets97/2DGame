@@ -12,6 +12,8 @@ workspace "PixelGame"
 	IncludeDir = {}
 	IncludeDir["PixelGameEngine"] = "PixelGame/ThirdParty/olcPixelGameEngine/Include"
 	IncludeDir["entt"] = "PixelGame/ThirdParty/entt/include"
+	IncludeDir["glm"] = "PixelGame/ThirdParty/glm"
+	IncludeDir["ThirdParty"] = "PixelGame/ThirdParty"
 
 project "PixelGame"
 	location "PixelGame"
@@ -36,7 +38,9 @@ project "PixelGame"
 	{
 		"%{prj.name}/src",
 		IncludeDir["PixelGameEngine"],
-		IncludeDir["entt"]
+		IncludeDir["entt"],
+		IncludeDir["glm"],
+		IncludeDir["ThirdParty"]
 	}
 
 	libdirs

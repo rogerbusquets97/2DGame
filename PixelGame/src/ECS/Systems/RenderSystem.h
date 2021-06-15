@@ -22,6 +22,12 @@ public:
 		Rendereable(std::string i_fileName, olc::Sprite* const i_sprite, olc::Decal* const i_decal) : fileName(i_fileName), sprite(i_sprite), decal(i_decal)
 		{
 		}
+
+		~Rendereable()
+		{
+			delete sprite;
+			delete decal;
+		}
 	};
 
 public:
