@@ -1,17 +1,20 @@
 #define OLC_PGE_APPLICATION
 #include "Application.h"
 #include "ECS/Systems/ISystem.h"
+#include "ECS/Systems/RenderSystem.h"
 
 Application::Application(const std::string& i_name)
 {
 	sAppName = i_name;
+
+	AddSystem<RenderSystem>();
 }
 
 Application::~Application()
 {
 	for (auto& system : m_systems)
 	{
-		delete system;
+		delete system.second;
 	}
 }
 
@@ -20,7 +23,7 @@ bool Application::OnUserCreate()
 	bool returnValue = true;
 	for (auto& system : m_systems)
 	{
-		returnValue = system->OnCreate();
+		returnValue = system.second->OnCreate();
 	}
 
 	return returnValue;
@@ -30,13 +33,13 @@ bool Application::OnUserUpdate(float fElapsedTime)
 {
 	for (auto& system : m_systems)
 	{
-		if (!system->OnPreUpdate(fElapsedTime))
+		if (!system.second->OnPreUpdate(fElapsedTime))
 			return false;
 	}
 
 	for (auto& system : m_systems)
 	{
-		if (!system->OnUpdate(fElapsedTime))
+		if (!system.second->OnUpdate(fElapsedTime))
 			return false;
 	}
 
@@ -48,22 +51,10 @@ bool Application::OnUserDestroy()
 	bool returnValue = true;
 	for (auto& system : m_systems)
 	{
-		returnValue = system->OnDestroy();
+		returnValue = system.second->OnDestroy();
 	}
 
 	return returnValue;
-}
-
-void Application::AddSystem(ISystem* i_system)
-{
-	m_systems.emplace_back(i_system);
-}
-
-void Application::RemoveSystem(ISystem* i_system)
-{
-	auto systemIt = std::find(m_systems.begin(), m_systems.end(), i_system);
-	if (systemIt != m_systems.end())
-		m_systems.erase(systemIt);
 }
 
 entt::registry& Application::GetRegistry()

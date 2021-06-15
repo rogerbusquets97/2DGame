@@ -14,8 +14,28 @@ public:
 	bool OnUserUpdate(float fElapsedTime) override;
 	bool OnUserDestroy() override;
 
-	void AddSystem(ISystem* i_system);
-	void RemoveSystem(ISystem* i_system);
+	template<typename T>
+	bool AddSystem()
+	{
+		static_assert(std::is_base_of<ISystem, T>::value, "Added modules must inherit from base class ISystem");
+		m_systems.emplace(typeid(T).hash_code(), new T(*this));
+
+		return true;
+	}
+
+	template<typename T>
+	T* GetSystem()
+	{
+		static_assert(std::is_base_of<ISystem, T>::value, "Cannot retrieve a non ISystem module!");
+		size_t hashCode = typeid(T).hash_code();
+
+		if (m_systems.find(hashCode) != m_systems.end())
+		{
+			return static_cast<T*>(m_systems.at(hashCode));
+		}
+
+		return nullptr;
+	}
 
 private:
 	entt::registry& GetRegistry();
@@ -23,7 +43,7 @@ private:
 private:
 
 	entt::registry m_registry;
-	std::vector<ISystem*> m_systems;
+	std::unordered_map<std::size_t, ISystem*> m_systems;
 
 	friend class SystemBase;
 };
